@@ -6,15 +6,12 @@ load_dotenv()
 
 AWS_REGION = os.getenv("AWS_REGION", "ap-south-1")
 DYNAMODB_ENDPOINT = os.getenv("DYNAMODB_ENDPOINT", "http://localhost:8001")
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "dummy")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "dummy")
+
 
 dynamodb = boto3.resource(
     "dynamodb",
     region_name=AWS_REGION,
-    endpoint_url=DYNAMODB_ENDPOINT,
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+    endpoint_url=DYNAMODB_ENDPOINT
 )
 
 def create_table_if_not_exists(table_name, key_name):
