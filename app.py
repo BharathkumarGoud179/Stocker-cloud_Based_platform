@@ -10,12 +10,11 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY", "stocker_secret_key")
 
+app.secret_key = os.environ["SECRET_KEY"]
 AWS_REGION = os.getenv("AWS_REGION", "ap-south-1")
 DYNAMODB_ENDPOINT = os.getenv("DYNAMODB_ENDPOINT", "http://localhost:8000")
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "dummy")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "dummy")
+
 
 STOCK_PRICES = {
     "AAPL": 185.0,
@@ -28,9 +27,8 @@ STOCK_PRICES = {
 dynamodb = boto3.resource(
     "dynamodb",
     region_name=AWS_REGION,
-    endpoint_url=DYNAMODB_ENDPOINT,
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+   endpoint_url=DYNAMODB_ENDPOINT if DYNAMODB_ENDPOINT else None
+    
 )
 
 users_table = dynamodb.Table("stocker_users")
