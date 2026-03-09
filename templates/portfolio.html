@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <h2>Stocker</h2>
+        <div>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/history">History</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Your Portfolio</h2>
+
+        <table>
+            <tr>
+                <th>Stock</th>
+                <th>Quantity</th>
+                <th>Avg Buy Price</th>
+                <th>Current Price</th>
+                <th>Current Value</th>
+                <th>Profit / Loss</th>
+            </tr>
+
+            {% if portfolio_data %}
+                {% for item in portfolio_data %}
+                <tr>
+                    <td>{{ item.stock_symbol }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ "%.2f"|format(item.avg_buy_price) }}</td>
+                    <td>${{ "%.2f"|format(item.current_price) }}</td>
+                    <td>${{ "%.2f"|format(item.current_value) }}</td>
+                    <td>${{ "%.2f"|format(item.profit_loss) }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6">No holdings found.</td>
+                </tr>
+            {% endif %}
+        </table>
+
+        <h3>Total Portfolio Value: ${{ "%.2f"|format(total_value) }}</h3>
+    </div>
+</body>
+</html>

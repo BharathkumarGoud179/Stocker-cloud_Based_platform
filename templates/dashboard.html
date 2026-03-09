@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <h2>Stocker</h2>
+        <div>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/history">History</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Welcome, {{ user_name }}</h2>
+
+        {% if message %}
+            <div class="success">{{ message }}</div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <h3>Available Stocks</h3>
+        <div class="grid">
+            {% for symbol, price in stocks.items() %}
+            <div class="card">
+                <h4>{{ symbol }}</h4>
+                <p>Current Price: ${{ price }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="two-column">
+            <div class="card">
+                <h3>Buy Stock</h3>
+                <form method="POST" action="/buy">
+                    <select name="stock_symbol">
+                        {% for symbol in stocks.keys() %}
+                        <option value="{{ symbol }}">{{ symbol }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="number" name="quantity" min="1" placeholder="Enter quantity">
+                    <button type="submit">Buy</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Sell Stock</h3>
+                <form method="POST" action="/sell">
+                    <select name="stock_symbol">
+                        {% for symbol in stocks.keys() %}
+                        <option value="{{ symbol }}">{{ symbol }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="number" name="quantity" min="1" placeholder="Enter quantity">
+                    <button type="submit">Sell</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

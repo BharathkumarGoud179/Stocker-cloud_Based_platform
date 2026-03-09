@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <h2>Stocker</h2>
+        <div>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/history">History</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Transaction History</h2>
+
+        <table>
+            <tr>
+                <th>Stock</th>
+                <th>Action</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Timestamp</th>
+            </tr>
+
+            {% if transactions %}
+                {% for tx in transactions %}
+                <tr>
+                    <td>{{ tx.stock_symbol }}</td>
+                    <td>{{ tx.action }}</td>
+                    <td>{{ tx.quantity }}</td>
+                    <td>${{ "%.2f"|format(tx.price|float) }}</td>
+                    <td>${{ "%.2f"|format(tx.total|float) }}</td>
+                    <td>{{ tx.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6">No transactions found.</td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+</body>
+</html>

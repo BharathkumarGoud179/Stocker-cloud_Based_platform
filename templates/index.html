@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stocker - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <h2>Stocker</h2>
+        <div>
+            <a href="/">Home</a>
+            <a href="/register">Register</a>
+            <a href="/login">Login</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Welcome to Stocker</h1>
+        <p>A cloud-based stock trading platform built using Flask and DynamoDB.</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Secure Login</h3>
+                <p>User registration and authentication.</p>
+            </div>
+            <div class="card">
+                <h3>Buy / Sell</h3>
+                <p>Trade stocks with simple order execution.</p>
+            </div>
+            <div class="card">
+                <h3>Portfolio</h3>
+                <p>Track your stock holdings and value.</p>
+            </div>
+            <div class="card">
+                <h3>History</h3>
+                <p>See all past transactions in one place.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
